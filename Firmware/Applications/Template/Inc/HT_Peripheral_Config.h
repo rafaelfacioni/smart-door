@@ -38,7 +38,10 @@
 #define __HT_PERIPHERAL_CONFIG_H__
 
 #include "qcx212.h"
-
+#include "pad_qcx212.h"
+#include "gpio_qcx212.h"
+#include "stdint.h"
+#include "main.h"
 /*
 ----------------------------------------------------  Table 1. GPIO Table. -------------------------------------------------------------
 ___________________________________________________________________________________________________________________________________________________________________________________________
@@ -96,7 +99,7 @@ ________________________________________________________________________________
 
 // I2C0 (Inter-integrated Circuit Interface) [Driver_I2C0]
 // Configuration settings for Driver_I2C0 in component ::Drivers:I2C
-#define RTE_I2C0                        0
+#define RTE_I2C0                        1
 
 // { PAD_PIN18},  // 0 : gpio7  / 2 : I2C0 SCL
 // { PAD_PIN26},  // 0 : gpio6  / 2 : I2C0 SDA
@@ -118,7 +121,7 @@ ________________________________________________________________________________
 
 // I2C1 (Inter-integrated Circuit Interface) [Driver_I2C1]
 // Configuration settings for Driver_I2C1 in component ::Drivers:I2C
-#define RTE_I2C1                        1
+#define RTE_I2C1                        0
 
 // { PAD_PIN16},  // 0 : gpio5 / 1 : I2C1 SCL
 // { PAD_PIN15},  // 0 : gpio4  / 1 : I2C1 SDA
@@ -301,6 +304,37 @@ ________________________________________________________________________________
 #define L2CTLS_INIT_MODE POLLING_MODE
 
 #define FLASH_BARE_RW_MODE 1
+
+/*
+PINS DIVISIONS:
+BH1750 -> GPIO4 & GPIO5
+LED -> GPIO 6
+BUZZER -> GPIO 3
+RED SWITCH -> GPIO10
+*/
+typedef enum {
+    DEVICE_LED,
+    DEVICE_SWITCH,
+    DEVICE_BUZZER,
+    DEVICE_BH1750
+} GpioDevice_t;
+
+//LED INDICATOR
+#define LED_INSTANCE 0
+#define LED_PIN 5
+#define LED_PAD_ID 16
+#define LED_PAD_ALT_FUNC         PAD_MuxAlt0    
+#define LED_MASK (uint32_t)(1 << LED_PIN)
+
+//RED SWITCH
+#define SWITCH_INSTANCE 0
+#define SWITCH_PIN 10
+#define SWITCH_PAD_ID 25
+#define SWITCH_PAD_ALT_FUNC      PAD_MuxAlt0                                    
+#define SWITCH_MASk (uint32_t)(1 << SWITCH_PIN)
+
+void GPIO_deviceInit(GpioDevice_t);
+
 
 #endif  /* __HT_PERIPHERAL_CONFIG_H__ */
 

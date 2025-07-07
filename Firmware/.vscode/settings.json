@@ -43,7 +43,9 @@
         "ht_bsp_custom.h": "c",
         "flash_qcx212_rt.h": "c",
         "gpio_api.h": "c",
-        "ostask.h": "c"
+        "ostask.h": "c",
+        "driver_i2c.h": "c",
+        "gpio_qcx212.h": "c"
     },
     "python.autoComplete.extraPaths": [
         "${workspaceFolder}/sources/poky/bitbake/lib",
