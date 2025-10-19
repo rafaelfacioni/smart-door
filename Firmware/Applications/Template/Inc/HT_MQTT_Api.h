@@ -42,9 +42,50 @@
 #include "MQTTClient.h"
 #include "uart_qcx212.h"
 
-#define MQTT_TLS_ENABLE 1
+#define MQTT_TLS_ENABLE 0
 
-#define MQTT_GENERAL_TIMEOUT 60000
+#define MQTT_GENERAL_TIMEOUT 300000
+
+/* Defines  ------------------------------------------------------------------*/
+#define HT_MQTT_KEEP_ALIVE_INTERVAL 240                   /**</ Keep alive interval in ms. */
+#define HT_MQTT_VERSION 4                                 /**</ MQTT protocol version. */
+
+#if MQTT_TLS_ENABLE == 1
+#define HT_MQTT_PORT   8883                               /**</ MQTT TCP TLS port. */
+#else
+#define HT_MQTT_PORT   1883                               /**</ MQTT TCP port. */
+#endif
+
+#define HT_MQTT_SEND_TIMEOUT      300000                  /**</ MQTT TX timeout. */
+#define HT_MQTT_RECEIVE_TIMEOUT   300000                  /**</ MQTT RX timeout. */
+#define HT_MQTT_BUFFER_SIZE 1024                          /**</ Maximum MQTT buffer size. */
+#define HT_SUBSCRIBE_BUFF_SIZE  6                         /**</ Maximum buffer size to received from MQTT subscribe. */
+
+
+/**
+ * \enum HT_ConnectionStatus
+ * \brief HTNB32L-XXX connection status.
+ */
+typedef enum {
+    HT_CONNECTED = 0,
+    HT_NOT_CONNECTED
+} HT_ConnectionStatus;
+
+
+/* Typedefs  ------------------------------------------------------------------*/
+
+#define QMSG_ID_BASE               (0x160) 
+#define QMSG_ID_NW_IPV4_READY      (QMSG_ID_BASE)
+#define QMSG_ID_NW_IPV6_READY      (QMSG_ID_BASE + 1)
+#define QMSG_ID_NW_IPV4_6_READY    (QMSG_ID_BASE + 2)
+#define QMSG_ID_NW_DISCONNECT      (QMSG_ID_BASE + 3)
+#define QMSG_ID_SOCK_SENDPKG       (QMSG_ID_BASE + 4)
+#define QMSG_ID_SOCK_RECVPKG       (QMSG_ID_BASE + 5)
+
+#define INIT_TASK_STACK_SIZE    (1024*6)
+#define RINGBUF_READY_FLAG      (0x06)
+#define APP_EVENT_QUEUE_SIZE    (10)
+#define MAX_PACKET_SIZE         (256)
 
 /* Functions ------------------------------------------------------------------*/
 
@@ -117,6 +158,19 @@ void HT_MQTT_SubscribeCallback(MessageData *msg);
  * \retval none
  *******************************************************************/
 void HT_MQTT_Subscribe(MQTTClient *mqtt_client, char *topic, enum QoS qos);
+
+void HT_FSM_SetSubscribeBuff(MessageData *msg);
+void HT_Fsm(void);
+void NbiotMqttInit(void *arg);
+void LedVerdeInit(void);
+void LedAzulInit(void);
+
+extern MQTTClient mqttClient;
+extern char topic_door[];
+extern char topic_light[];
+extern char topic_buzzer[];
+extern QueueHandle_t buzzerQueue;
+extern uint8_t comando;
 
 #endif /* __HT_MQTT_API_H__ */
 

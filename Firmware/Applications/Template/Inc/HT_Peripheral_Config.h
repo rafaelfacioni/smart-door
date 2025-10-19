@@ -96,7 +96,7 @@ ________________________________________________________________________________
 
 // I2C0 (Inter-integrated Circuit Interface) [Driver_I2C0]
 // Configuration settings for Driver_I2C0 in component ::Drivers:I2C
-#define RTE_I2C0                        0
+#define RTE_I2C0                        1
 
 // { PAD_PIN18},  // 0 : gpio7  / 2 : I2C0 SCL
 // { PAD_PIN26},  // 0 : gpio6  / 2 : I2C0 SDA
@@ -118,7 +118,7 @@ ________________________________________________________________________________
 
 // I2C1 (Inter-integrated Circuit Interface) [Driver_I2C1]
 // Configuration settings for Driver_I2C1 in component ::Drivers:I2C
-#define RTE_I2C1                        1
+#define RTE_I2C1                        0
 
 // { PAD_PIN16},  // 0 : gpio5 / 1 : I2C1 SCL
 // { PAD_PIN15},  // 0 : gpio4  / 1 : I2C1 SDA

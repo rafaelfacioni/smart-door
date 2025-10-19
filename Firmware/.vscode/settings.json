@@ -41,7 +41,15 @@
         "bsp.h": "c",
         "debug_log.h": "c",
         "ht_bsp_custom.h": "c",
-        "flash_qcx212_rt.h": "c"
+        "flash_qcx212_rt.h": "c",
+        "htnb32lxxx_hal_i2c.h": "c",
+        "bh1750fvi.h": "c",
+        "task.h": "c",
+        "driver_i2c.h": "c",
+        "reedswitch.h": "c",
+        "mqttclient.h": "c",
+        "ht_gpio_qcx212.h": "c",
+        "queue.h": "c"
     },
     "python.autoComplete.extraPaths": [
         "${workspaceFolder}/sources/poky/bitbake/lib",

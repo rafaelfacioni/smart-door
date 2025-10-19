@@ -36,7 +36,7 @@ def replace_line(file_name, line_num, text):
     out.close()
 
 def get_bin_name():
-    text = "syspath = ../Build/{}/HTNB32L-XXX-{}.bin\n".format(sys.argv[1], sys.argv[1])
+    text = "syspath = ../Build/{}/{}.bin\n".format(sys.argv[1], sys.argv[1])
     return text
 
 def get_com_port():
